@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+export const API_BASE = process.env.REACT_APP_BACKEND_URL;
+const API = `${API_BASE}/api`;
 
 export const api = axios.create({ baseURL: API, timeout: 15000 });
 
@@ -19,6 +20,10 @@ export const endpoints = {
   compareExperiment: (body) => api.post("/experiments/compare", body).then(r => r.data),
   judgeScript: () => api.get("/judge/script").then(r => r.data),
   judgeStart: () => api.post("/judge/start").then(r => r.data),
+  integrationsStatus: () => api.get("/integrations/status").then(r => r.data),
+  listFiles: (params = {}) => api.get("/files", { params }).then(r => r.data),
+  deleteFile: (id) => api.delete(`/files/${id}`).then(r => r.data),
+  copilotAsk: (body) => api.post("/copilot/ask", body, { timeout: 60000 }).then(r => r.data),
 };
 
 export const NETWORK_STATES = ["NORMAL", "DEGRADED", "HIGH_PACKET_LOSS", "PARTIAL_PARTITION", "RECOVERED"];

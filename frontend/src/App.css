@@ -238,3 +238,103 @@ html, body { overflow-x: hidden; }
 .pillar .name { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.24em; color: var(--accent); }
 .pillar h4 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; margin: 8px 0 6px; }
 .pillar p { color: var(--muted); font-size: 13px; margin: 0; }
+
+/* ================= Copilot ================= */
+.copilot-fab {
+  position: fixed; right: 22px; bottom: 22px; z-index: 60;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 18px; border-radius: 999px;
+  border: 1px solid var(--accent); background: linear-gradient(135deg, #12333a, #123147);
+  color: var(--text); font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  box-shadow: 0 12px 36px rgba(53, 200, 209, 0.25);
+  cursor: pointer; transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.copilot-fab:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(53, 200, 209, 0.4); }
+.copilot-fab:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.copilot-drawer {
+  position: fixed; right: 22px; bottom: 22px; z-index: 60;
+  width: 420px; max-width: calc(100vw - 32px); height: 620px; max-height: calc(100vh - 44px);
+  background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+  display: grid; grid-template-rows: auto 1fr auto auto;
+  box-shadow: 0 28px 60px rgba(0,0,0,0.55);
+  overflow: hidden;
+}
+.copilot-head { display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px; border-bottom: 1px solid var(--line); }
+.copilot-head h3 { margin: 4px 0 0; font-family: 'Space Grotesk', sans-serif; font-size: 17px; }
+.copilot-feed { padding: 14px 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+.copilot-empty p { margin: 4px 0 14px; color: var(--muted); font-size: 13px; }
+.copilot-suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+.copilot-suggestions button { cursor: pointer; font-size: 11px; }
+.copilot-msg { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); font-size: 13px; }
+.copilot-msg.user { background: rgba(53,200,209,0.08); border-color: rgba(53,200,209,0.35); align-self: flex-end; max-width: 92%; }
+.copilot-msg.analyst { background: var(--panel-2, #131820); }
+.copilot-msg-role { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.24em; color: var(--muted); margin-bottom: 4px; }
+.copilot-msg-body { white-space: pre-wrap; line-height: 1.5; }
+.copilot-cites { margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.copilot-cites a { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); text-decoration: none;
+  font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
+.copilot-cites a:hover { text-decoration: underline; }
+.copilot-cites a span { max-width: 340px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.copilot-input { display: flex; gap: 6px; padding: 12px 14px; border-top: 1px solid var(--line); background: var(--panel); }
+.copilot-input input { flex: 1; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--text); font-size: 13px; }
+.copilot-input input:focus { outline: none; border-color: var(--accent); }
+.copilot-offline { padding: 6px 14px 10px; color: var(--amber); font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ================= Files ================= */
+.files-cats { display: flex; gap: 8px; margin: 0 0 18px; flex-wrap: wrap; }
+.file-cat {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--panel);
+  color: var(--muted); font-size: 12px;
+  font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em;
+  cursor: pointer; transition: border-color 160ms ease, color 160ms ease;
+}
+.file-cat:hover { color: var(--text); }
+.file-cat.active { border-color: var(--accent); color: var(--text); background: rgba(53,200,209,0.08); }
+.files-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-top: 8px; }
+.file-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--panel); display: flex; flex-direction: column; }
+.file-thumb { width: 100%; aspect-ratio: 4/3; background: #0d1117; border: 0; padding: 0; overflow: hidden; cursor: pointer; }
+.file-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.pdf-thumb { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); height: 100%; font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+.file-meta { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.file-name { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-sub { display: flex; gap: 6px; align-items: center; font-size: 11px; }
+.file-caption { font-size: 12px; color: var(--muted); }
+.btn.tiny { padding: 4px 8px; font-size: 11px; align-self: flex-start; }
+.warning-panel { border-color: var(--amber); color: var(--amber); margin-bottom: 16px; }
+.files-preview-body { display: flex; justify-content: center; align-items: center; padding: 16px; }
+.files-preview-body img { max-width: 100%; max-height: 70vh; border-radius: 12px; }
+
+@media (max-width: 900px) {
+  .copilot-drawer { width: calc(100vw - 24px); right: 12px; bottom: 12px; }
+  .copilot-fab { right: 12px; bottom: 12px; padding: 10px 14px; font-size: 11px; }
+  .files-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Task/File form (shared) */
+.task-form { display: flex; flex-direction: column; gap: 14px; }
+.task-form label { display: flex; flex-direction: column; gap: 6px; font-size: 12px;
+  color: var(--muted); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+.task-form label span { font-size: 10px; }
+.task-form input[type="text"], .task-form input[type="number"], .task-form select, .task-form textarea {
+  padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--bg); color: var(--text); font-size: 13px; font-family: inherit;
+  text-transform: none; letter-spacing: normal;
+}
+.task-form input:focus, .task-form select:focus, .task-form textarea:focus { outline: none; border-color: var(--accent); }
+.task-form input[type="file"] {
+  padding: 8px; border-radius: 10px; border: 1px dashed var(--line);
+  background: var(--bg); color: var(--text); font-size: 12px;
+}
+.task-form input[type="file"]::file-selector-button {
+  padding: 6px 10px; margin-right: 10px; border-radius: 8px; border: 0;
+  background: var(--accent); color: #071018; font-weight: 600; cursor: pointer;
+}
+.form-error { color: var(--red); font-size: 12px; font-family: 'IBM Plex Mono', monospace; }

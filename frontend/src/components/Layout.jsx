@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { Activity, Boxes, Cpu, GitBranch, Layers, LayoutDashboard, Menu, Network, PlayCircle, Radio, ScrollText, Settings, ShieldCheck, TestTube2 } from "lucide-react";
+import { Activity, Boxes, Cpu, FolderOpen, GitBranch, Layers, LayoutDashboard, Menu, Network, PlayCircle, Radio, ScrollText, Settings, ShieldCheck, TestTube2 } from "lucide-react";
 
 const NAV = [
   { to: "/", label: "Overview", icon: LayoutDashboard, testId: "nav-overview", exact: true },
@@ -12,6 +12,7 @@ const NAV = [
   { to: "/architecture", label: "Architecture", icon: Layers, testId: "nav-architecture" },
   { to: "/events", label: "Event Log", icon: ScrollText, testId: "nav-events" },
   { to: "/judge", label: "Judge Mode", icon: PlayCircle, testId: "nav-judge" },
+  { to: "/files", label: "Files", icon: FolderOpen, testId: "nav-files" },
   { to: "/settings", label: "Settings", icon: Settings, testId: "nav-settings" },
 ];
 

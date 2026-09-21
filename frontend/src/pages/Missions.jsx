@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { endpoints } from "../lib/api";
 
@@ -73,16 +74,21 @@ export default function Missions({ state, command }) {
           </div>
           <div style={{ overflowX: "auto" }}>
             <table className="table" data-testid="missions-completed-table">
-              <thead><tr><th>ID</th><th>AGENT</th><th>DELIVERY (s)</th></tr></thead>
+              <thead><tr><th>ID</th><th>AGENT</th><th>DELIVERY (s)</th><th></th></tr></thead>
               <tbody>
                 {completed.slice(-10).reverse().map(t => (
                   <tr key={t.id} data-testid={`missions-completed-${t.id}`}>
                     <td className="mono">{t.id}</td>
                     <td className="mono">{t.assigned_agent || "—"}</td>
                     <td>{(t.delivered_at != null && t.created_at != null) ? (t.delivered_at - t.created_at).toFixed(1) : "—"}</td>
+                    <td>
+                      <Link to={`/files?category=delivery&ref=${t.id}`} className="btn ghost tiny" data-testid={`missions-attach-${t.id}`}>
+                        Attach proof
+                      </Link>
+                    </td>
                   </tr>
                 ))}
-                {completed.length === 0 && <tr><td colSpan={3} className="muted text-mono">No completions yet.</td></tr>}
+                {completed.length === 0 && <tr><td colSpan={4} className="muted text-mono">No completions yet.</td></tr>}
               </tbody>
             </table>
           </div>

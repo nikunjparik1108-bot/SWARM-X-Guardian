@@ -1,4 +1,5 @@
-export default function Settings({ state }) {
+export default function Settings({ state, integrations }) {
+  const int_ = integrations || { storage_enabled: false, copilot_enabled: false };
   return (
     <div data-testid="settings-page">
       <div className="page-header">
@@ -34,6 +35,21 @@ export default function Settings({ state }) {
             <div className="inspect-row"><span>Scenario</span><b>{state.scenario}</b></div>
             <div className="inspect-row"><span>Network</span><b>{state.network_state}</b></div>
             <div className="inspect-row"><span>Sim time</span><b>{state.sim_time} s</b></div>
+          </div>
+          <div style={{ marginTop: 18 }}>
+            <span className="panel-kicker">INTEGRATIONS</span>
+            <div className="inspect-row" data-testid="settings-storage-status">
+              <span>Object storage</span>
+              <b style={{ color: int_.storage_enabled ? "var(--green)" : "var(--amber)" }}>
+                {int_.storage_enabled ? "Emergent · online" : "offline"}
+              </b>
+            </div>
+            <div className="inspect-row" data-testid="settings-copilot-status">
+              <span>Mission Copilot</span>
+              <b style={{ color: int_.copilot_enabled ? "var(--green)" : "var(--amber)" }}>
+                {int_.copilot_enabled ? `Perplexity · ${int_.model || "sonar"}` : "offline"}
+              </b>
+            </div>
           </div>
         </div>
       </div>
