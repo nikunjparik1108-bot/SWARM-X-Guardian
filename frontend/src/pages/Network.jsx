@@ -18,7 +18,7 @@ export default function NetworkPage({ state, command }) {
   const setNetwork = (s) => command(() => endpoints.network(s));
 
   return (
-    <>
+    <div data-testid="network-page">
       <div className="page-header">
         <div>
           <div className="eyebrow">/ NETWORK · COMMUNICATION MESH</div>
@@ -62,7 +62,7 @@ export default function NetworkPage({ state, command }) {
               <thead><tr><th>PAIR</th><th>LATENCY</th><th>LOSS</th><th>SIGNAL</th></tr></thead>
               <tbody>
                 {state.links.slice(0, 40).map((l, i) => (
-                  <tr key={i} data-testid={`network-link-${i}`}>
+                  <tr key={`${l.a}-${l.b}`} data-testid={`network-link-${i}`}>
                     <td className="mono">{l.a} ↔ {l.b}</td>
                     <td>{l.latency} ms</td>
                     <td>{(l.loss * 100).toFixed(1)}%</td>
@@ -75,6 +75,6 @@ export default function NetworkPage({ state, command }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

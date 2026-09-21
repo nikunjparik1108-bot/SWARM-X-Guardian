@@ -46,6 +46,7 @@ export default function Experiments() {
     setBusy(true); setError("");
     try {
       const r = await endpoints.runExperiment({ scenario: scenarioId, mode, agent_count: agentCount });
+      r.__key = `${r.id || "exp"}-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
       setResults(prev => [r, ...prev].slice(0, 20));
     } catch (e) { setError("Experiment failed"); }
     finally { setBusy(false); }
@@ -56,7 +57,9 @@ export default function Experiments() {
     try {
       const r = await endpoints.compareExperiment({ scenario: scenarioId });
       setCompare(r);
-      setResults(prev => [r.decentralized, r.centralized, ...prev].slice(0, 20));
+      const dec = { ...r.decentralized, __key: `dec-${Date.now()}-${Math.random().toString(36).slice(2, 6)}` };
+      const cen = { ...r.centralized, __key: `cen-${Date.now()}-${Math.random().toString(36).slice(2, 6)}` };
+      setResults(prev => [dec, cen, ...prev].slice(0, 20));
     } catch (e) { setError("Comparison failed"); }
     finally { setBusy(false); }
   };
@@ -131,7 +134,8 @@ export default function Experiments() {
           <div className="panel-head"><div><span className="panel-kicker">COMPARISON</span><h2>Central vs Decentralized</h2></div></div>
           {!chartData && <div className="muted text-mono">Run a comparison to see head-to-head metrics.</div>}
           {chartData && (
-            <ResponsiveContainer width="100%" height={280} data-testid="experiments-compare-chart">
+            <div data-testid="experiments-compare-chart">
+            <ResponsiveContainer width="100%" height={280}>
               <BarChart data={chartData}>
                 <CartesianGrid stroke="#232a34" strokeDasharray="3 3" />
                 <XAxis dataKey="metric" stroke="#8c95a1" tick={{ fontSize: 10 }} />
@@ -142,6 +146,7 @@ export default function Experiments() {
                 <Bar dataKey="decentralized" fill="#35c8d1" name="Decentralized" />
               </BarChart>
             </ResponsiveContainer>
+            </div>
           )}
         </div>
       </div>
@@ -158,7 +163,7 @@ export default function Experiments() {
             </thead>
             <tbody>
               {results.map((r, i) => (
-                <tr key={r.id || i} data-testid={`experiments-row-${i}`}>
+                <tr key={r.__key || r.id || `exp-${i}`} data-testid={`experiments-row-${i}`}>
                   <td className="mono">{r.scenario_label || r.scenario}</td>
                   <td><span className={`pill ${r.mode === "centralized" ? "blue" : "cyan"}`}><i />{r.mode}</span></td>
                   <td>{r.agent_count}</td>

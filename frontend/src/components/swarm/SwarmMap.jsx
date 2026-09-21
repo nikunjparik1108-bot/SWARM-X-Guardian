@@ -27,7 +27,7 @@ export function SwarmMap({ state, onSelect, showLinks = true, showTasks = true, 
       const tone = l.signal > 0.75 ? "strong" : l.signal > 0.4 ? "" : "weak";
       return (
         <div
-          key={i}
+          key={`${l.a}-${l.b}`}
           className={`map-link ${tone}`}
           style={{ left: `${x1}%`, top: `${y1}%`, width: `${length}%`, transform: `rotate(${angle}deg)` }}
         />

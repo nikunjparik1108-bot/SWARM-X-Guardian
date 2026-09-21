@@ -68,6 +68,7 @@ class World:
         self.central_load = 0.0
         self.tick = 0
         self.sim_time = 0.0
+        self.running = True
         cols = max(3, int(math.sqrt(count) * 1.6))
         for i in range(count):
             row, col = divmod(i, cols)

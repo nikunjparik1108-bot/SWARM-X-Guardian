@@ -17,7 +17,7 @@ export default function AgentInspector({ agent, onClose, onFail }) {
   return (
     <div className="inspector-overlay" onClick={onClose} data-testid="agent-inspector-overlay">
       <aside className="inspector-panel" onClick={e => e.stopPropagation()} data-testid="agent-inspector">
-        <button className="btn ghost" onClick={onClose} data-testid="close-inspector-button" style={{ float: "right" }}><X size={14} /> Close</button>
+        <button className="btn ghost" onClick={onClose} data-testid="agent-inspector-close" style={{ float: "right" }}><X size={14} /> Close</button>
         <span className="panel-kicker">AGENT INSPECTOR</span>
         <h2>{agent.id}</h2>
         <div className="hstack" style={{ marginBottom: 6 }}>

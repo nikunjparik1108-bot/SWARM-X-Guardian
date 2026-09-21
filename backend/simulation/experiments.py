@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import copy
 import time
+import uuid
 from typing import Any
 
 from .mesh import NetworkState
@@ -102,7 +103,7 @@ def run_experiment(scenario_id: str, mode: str = "decentralized",
     started = time.time()
     result = _run_single(world, config)
     result.update({
-        "id": f"exp-{int(time.time())}-{scenario_id[:4]}",
+        "id": f"exp-{int(time.time() * 1000)}-{uuid.uuid4().hex[:6]}",
         "scenario": scenario_id,
         "scenario_label": config["label"],
         "description": config["description"],

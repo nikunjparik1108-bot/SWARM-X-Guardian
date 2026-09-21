@@ -1,6 +1,6 @@
 export default function Settings({ state }) {
   return (
-    <>
+    <div data-testid="settings-page">
       <div className="page-header">
         <div>
           <div className="eyebrow">/ SETTINGS · PROJECT INFO</div>
@@ -37,6 +37,6 @@ export default function Settings({ state }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

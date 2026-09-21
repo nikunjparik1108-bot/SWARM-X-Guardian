@@ -79,7 +79,7 @@ export default function Missions({ state, command }) {
                   <tr key={t.id} data-testid={`missions-completed-${t.id}`}>
                     <td className="mono">{t.id}</td>
                     <td className="mono">{t.assigned_agent || "—"}</td>
-                    <td>{t.delivered_at && t.created_at ? (t.delivered_at - t.created_at).toFixed(1) : "—"}</td>
+                    <td>{(t.delivered_at != null && t.created_at != null) ? (t.delivered_at - t.created_at).toFixed(1) : "—"}</td>
                   </tr>
                 ))}
                 {completed.length === 0 && <tr><td colSpan={3} className="muted text-mono">No completions yet.</td></tr>}

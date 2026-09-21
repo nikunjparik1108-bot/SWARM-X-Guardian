@@ -95,7 +95,7 @@ export default function JudgeMode({ state, command }) {
           <div className="panel-head">
             <div>
               <span className="panel-kicker">STEP {active?.id ?? "—"} / {steps.length}</span>
-              <h2>{active?.label || "Awaiting start"}</h2>
+              <h2 data-testid="judge-step-title">{active?.label || "Awaiting start"}</h2>
             </div>
           </div>
           <p className="muted" data-testid="judge-step-description">{active?.description || "Click Start demo to begin the recovery narrative."}</p>
