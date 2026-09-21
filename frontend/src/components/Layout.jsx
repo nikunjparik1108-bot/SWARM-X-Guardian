@@ -37,9 +37,9 @@ export default function Layout({ children, state, error }) {
         <div className="topbar-meta">
           <span className="pill cyan" data-testid="topbar-mode-pill"><i />{(mode || "…").toUpperCase()}</span>
           <span className="divider" />
-          <span data-testid="topbar-scenario">SCENARIO / {scenario.toUpperCase()}</span>
-          <span className="divider" />
-          <span data-testid="topbar-tick">TICK · {state?.tick ?? "—"}</span>
+          <span className="m-hide" data-testid="topbar-scenario">SCENARIO / {scenario.toUpperCase()}</span>
+          <span className="divider m-hide" />
+          <span className="m-hide" data-testid="topbar-tick">TICK · {state?.tick ?? "—"}</span>
           <span className="divider" />
           <span className={`pill ${running ? "green" : "amber"}`} data-testid="topbar-run-state">
             <i />{running ? "LIVE" : "PAUSED"}

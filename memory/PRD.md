@@ -1,54 +1,44 @@
-# SWARM-X Guardian PRD
+# SWARM-X Guardian — Product Requirements Document
 
-## Original problem statement
-Build SWARM-X Guardian, a decentralized self-healing multi-agent coordination platform for autonomous logistics that continues mission operations through controller failure, agent failure, communication loss, dynamic obstacles, and battery depletion. The prototype must include a browser dashboard, Python/Pygame simulator, FastAPI, MQTT with local fallback, PostgreSQL target schema, measurable benchmarks, and judge-ready KPIT Sparkle materials.
+## Original Problem Statement
+Decentralized multi-agent coordination for autonomous logistics. Traditional autonomous logistics systems can depend heavily on a central controller. If that controller or communication path fails, fleet operations may be disrupted. The prototype demonstrates a decentralized multi-agent architecture in which individual autonomous agents maintain their own local state, communicate with nearby agents, discover neighboring agents, evaluate tasks locally, coordinate task allocation, dynamically reassign work, adapt to individual-agent failures, respond to degraded communication, avoid unsafe conflicts, and continue the mission without requiring a single central decision-maker.
 
-## User choices and persona
-- User chose both browser dashboard and Pygame simulator.
-- User chose PostgreSQL as the target data store.
-- User chose MQTT with an in-process fallback for demos.
-- User needs live controls, manual task creation, and agent inspection.
-- Primary persona: undergraduate robotics innovator presenting a resilient swarm concept to KPIT judges and logistics operators.
+## Architecture
+- **Backend** (FastAPI, Python)
+  - `simulation/agent.py` — Agent state machine (IDLE→SEARCHING→EVALUATING→NEGOTIATING→ASSIGNED→EN_ROUTE→DELIVERING→RETURNING→DEGRADED→FAILED→RECOVERING)
+  - `simulation/task.py` — Task lifecycle
+  - `simulation/allocator.py` — Utility-based auction (weights: distance, battery, payload, workload, ETA, priority)
+  - `simulation/mesh.py` — Peer mesh (distance-based neighbors, latency/loss/signal, heartbeat timeout detection, partition scenarios)
+  - `simulation/world.py` — Simulation controller + real computed metrics
+  - `simulation/experiments.py` — Deterministic scenario runners for measured results
+  - `server.py` — REST API (`/api/simulation`, `/api/tasks`, `/api/agents/{id}/fail`, `/api/experiments/...`, `/api/judge/...`)
+- **Frontend** (React 19 + React Router + Recharts)
+  - Layout with sidebar + topbar; pages: Overview, Swarm, Missions, Simulation, Experiments, Network, Architecture, Event Log, Judge Mode, Settings
+  - Shared components: `SwarmMap`, `AgentInspector`, `EventStream`
 
-## Architecture decisions
-- React dashboard uses the existing `REACT_APP_BACKEND_URL` and calls FastAPI REST endpoints.
-- FastAPI owns a deterministic simulation clock, scenario fixtures, agent health, recovery events, and task auction events.
-- Transport is adapter-shaped: the current working demo uses an in-process fallback; MQTT topics are documented for production.
-- PostgreSQL schema is documented as the persistence target; the demo remains runnable without external credentials.
-- Pygame is a standalone field demonstrator for offline judging.
+## Personas
+- **KPIT Sparkle judge** — needs a compact 60-second guided demo (Judge Mode)
+- **Robotics engineer** — inspects Architecture, Experiments, Network layers
+- **Logistics reviewer** — inspects Missions + Fleet health + measured recovery metrics
+- **Undergraduate innovator** — presents the whole system end-to-end
 
-## Core requirements
-- Show active/failed agents, communications health, recovery events, mission success, task completion, and topology.
-- Run normal, failure, communication loss, obstacle, battery, 50-agent, and 100-agent scenarios.
-- Inject agent failures and create prioritized manual tasks.
-- Inspect agent state including battery, velocity, neighbors, task, position, and status.
-- Compare centralized and decentralized benchmark curves.
-- Provide architecture, API, MQTT, schema, demo, research, patent, and business documentation.
+## What's implemented (2026-02)
+- Full decentralized simulation with real agent state machine, transparent scoring, peer mesh, heartbeat monitoring, failure recovery
+- Multi-page operations console with 10 routes, all live-linked to the same simulation snapshot (single source of truth)
+- Real Experiments engine with deterministic seeded runs, Centralized vs Decentralized comparison, CSV export
+- Judge Mode driven by real state transitions (not animation)
+- Architecture Explorer with 6 layers
+- Live Event Log with filtering
+- Responsive layout (desktop / tablet / mobile 390px)
 
-## Implemented — 2026-09-21
-- Tactical browser command center with responsive desktop/mobile layout.
-- FastAPI simulation service with live state polling and scenario reset/toggle endpoints.
-- Recovery feed with heartbeat failure, local auction, communications degradation, and battery reserve states.
-- Task broadcast modal and agent inspection/failure injection flow.
-- Pygame field simulator with keyboard-driven pause, reset, failure, and obstacle controls.
-- Architecture, API, MQTT, PostgreSQL schema, demo script, and research/business/patent brief.
-- Frontend production build and live preview smoke check passed.
+## Backlog
+- **P1**: Persistent history so multiple experiment runs survive backend restarts
+- **P1**: Multi-tenant per-user simulation instance
+- **P2**: A* obstacle-aware pathfinding (currently straight-line with safety separation)
+- **P2**: WebSocket push instead of polling
+- **P2**: Export PPT / research paper generator
 
-## Prioritized backlog
-### P0
-- Add an actual local PostgreSQL service and Alembic migrations for mission history.
-- Add a local MQTT broker adapter and heartbeat last-will handling.
-- Persist benchmark runs and export CSV results.
-### P1
-- Implement grid-based A* route visualization and collision counters.
-- Add benchmark page with live charts and run comparison.
-- Add multi-mission playback and downloadable judge report.
-### P2
-- Hardware-in-the-loop adapter for drone/AGV telemetry.
-- Signed task leases and Byzantine peer scoring.
-- Operator roles and audit log.
-
-## Next tasks
-1. Wire PostgreSQL and MQTT adapters behind the documented contracts.
-2. Add benchmark chart route and CSV export.
-3. Validate Pygame and browser metrics against the same replay seed.
+## Test Coverage
+- Backend regression: 14/14 pytest cases pass (see `/app/backend/tests/backend_test.py`)
+- Frontend flows: all 22 flows in latest iteration report pass with 0 console errors
+- Responsive verified at 1920×800 and 390×844

@@ -78,7 +78,7 @@
 .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Panels */
-.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; min-width: 0; overflow: hidden; }
 .panel-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
 .panel-kicker { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 6px; }
 .panel h2, .panel h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; margin: 0; }
@@ -193,14 +193,27 @@
 
 /* Mobile */
 .mobile-toggle { display: none; }
+.topbar-meta .m-hide { display: inline-flex; }
 @media (max-width: 900px) {
   .app-shell { grid-template-columns: 1fr; }
   .app-sidebar { position: fixed; top: 65px; left: 0; bottom: 0; width: 260px; z-index: 40; transform: translateX(-100%); transition: transform 200ms ease; }
   .app-sidebar.open { transform: translateX(0); }
   .mobile-toggle { display: inline-flex; }
-  .app-main { padding: 20px 16px 60px; }
+  .app-main { padding: 20px 16px 60px; overflow-x: hidden; }
+  .app-topbar { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+  .topbar-meta { gap: 8px; flex-wrap: wrap; font-size: 10px; }
+  .topbar-meta .m-hide { display: none; }
+  .topbar-meta .divider { display: none; }
+  .brand-name span { display: none; }
   .split-2, .split-3 { grid-template-columns: 1fr; }
+  .page-header h1 { font-size: 26px; word-break: break-word; }
+  .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric-card { padding: 12px; }
+  .metric-card .value { font-size: 22px; }
+  .page-header { gap: 12px; }
+  .page-actions .btn { padding: 8px 10px; font-size: 12px; }
 }
+html, body { overflow-x: hidden; }
 
 /* Judge mode */
 .judge-stage { background: linear-gradient(180deg, #0b0e13 0%, #0d1219 100%); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
