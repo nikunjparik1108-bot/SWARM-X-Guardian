@@ -1,0 +1,43 @@
+{
+  "project_name": "SWARM-X Guardian",
+  "tagline": "Self-Healing Decentralized Multi-Agent Coordination Platform for Autonomous Logistics",
+  "archetype": "THE PERFORMANCE PRO / TACTICAL MINIMALISM",
+  "theme": "dark",
+  "typography": {
+    "heading_font": "Barlow Condensed, sans-serif",
+    "body_font": "Inter, sans-serif",
+    "mono_font": "JetBrains Mono, monospace"
+  },
+  "colors": {
+    "primary": "#FF3B30",
+    "primary_hover": "#E0342B",
+    "background_dark": "#0A0A0A",
+    "card_dark": "#121212",
+    "border_dark": "#262626",
+    "text_main": "#F5F5F7",
+    "text_muted": "#A1A1A6",
+    "accent_cyan": "#007AFF",
+    "accent_success": "#34C759",
+    "accent_warning": "#FF9F0A"
+  },
+  "component_path": "/app/frontend/src/components",
+  "instructions_to_main_agent": "Implement full hybrid application including live dashboard, swarm simulation control panel, decentralized auction logs, failure recovery monitor, and benchmark comparison engine. Use .js files as configured in React + Tailwind.",
+  "image_urls": [
+    {
+      "category": "hero_drone",
+      "url": "https://images.unsplash.com/photo-1640517526259-8e5aacbebf71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxhdXRvbm9tb3VzJTIwZHJvbmUlMjBsb2dpc3RpY3MlMjBzd2FybSUyMHdhcmVob3VzZXxlbnwwfHx8fDE3OTAwMDA1NjV8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Autonomous drone flying in warehouse for swarm demonstration"
+    },
+    {
+      "category": "warehouse_facility",
+      "url": "https://images.pexels.com/photos/19034547/pexels-photo-19034547.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Industrial logistics aerial view"
+    }
+  ],
+  "universal_guidelines": [
+    "Every interactive element must include a data-testid attribute.",
+    "Do not use complete transparent background in headers or overlays.",
+    "Use Generous spacing (p-6, p-8, gap-6).",
+    "Ensure high contrast in dark mode (text-white vs zinc-400)."
+  ]
+}
