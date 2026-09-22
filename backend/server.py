@@ -40,8 +40,10 @@ app.add_middleware(
 world = World(agent_count=12, mode="decentralized")
 
 # --- Persistence: MongoDB for file records + copilot history ---------
-mongo_client = AsyncIOMotorClient(os.environ["MONGO_URL"])
-db = mongo_client[os.environ["DB_NAME"]]
+mongo_url = os.environ.get("MONGO_URL", "mongodb://127.0.0.1:27017")
+db_name = os.environ.get("DB_NAME", "swarm_x_guardian")
+mongo_client = AsyncIOMotorClient(mongo_url, serverSelectionTimeoutMS=2000)
+db = mongo_client[db_name]
 files_col = db["swarm_files"]
 copilot_col = db["swarm_copilot"]
 
